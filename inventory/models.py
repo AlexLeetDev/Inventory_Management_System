@@ -1,16 +1,28 @@
 from django.db import models
 
-# Create your models here.
-
-from django.db import models
-
 class Product(models.Model):
+    # Define choices for product types
+    PRODUCT_TYPES = [
+        ("CPU", "CPU"),
+        ("GPU", "GPU"),
+        ("Motherboard", "Motherboard"),
+        ("RAM", "RAM"),
+        ("Storage", "Storage"),
+        ("Power Supply", "Power Supply"),
+        ("Other", "Other"),  # Default option for unspecified types
+    ]
+
     name = models.CharField(max_length=100)  # Product name
     price = models.DecimalField(max_digits=10, decimal_places=2)  # Product price
     stock = models.PositiveIntegerField()  # Number of items in stock
+    product_type = models.CharField(
+        max_length=50,
+        choices=PRODUCT_TYPES,
+        default="Other"  # Set default value
+    )
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.product_type})"
 
 class Supplier(models.Model):
     name = models.CharField(max_length=100)  # Supplier name
@@ -32,4 +44,3 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order for {self.product} by {self.customer}"
-

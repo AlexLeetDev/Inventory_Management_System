@@ -1,16 +1,13 @@
 from django.contrib import admin
-
-# Register your models here.
-
-from django.contrib import admin
 from .models import Product, Supplier, Customer, Order  # Import your models
 
 # Register the Product model with custom display options
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'stock')  # Customize which fields are displayed in the list view
+    list_display = ('name', 'product_type', 'price', 'stock')  # Add product_type to display list
     search_fields = ('name',)  # Enable search functionality by product name
-    list_filter = ('price',)  # Add a filter option for price
+    list_filter = ('product_type', 'price')  # Add filter options for product type and price
+    ordering = ('product_type', 'name')  # Optional: Sort by product type, then by name
 
 # Register the Supplier model
 @admin.register(Supplier)
