@@ -1,28 +1,35 @@
 from django.contrib import admin
+from django.utils.html import format_html
 from .models import Product, Supplier, Customer, Order
 
-# Register the Product model
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'stock')  # Display basic product info
-    search_fields = ('name',)  # Search by product name
-    list_filter = ('stock',)  # Simple filter for stock level
+    list_display = ('icon', 'name', 'price', 'stock')
 
-# Register the Supplier model
+    def icon(self, obj):
+        return format_html('<i class="fas fa-box"></i>')
+    icon.short_description = 'Icon'
+
 @admin.register(Supplier)
 class SupplierAdmin(admin.ModelAdmin):
-    list_display = ('name',)  # Display supplier name
-    search_fields = ('name',)  # Search by supplier name
+    list_display = ('icon', 'name')
 
-# Register the Customer model
+    def icon(self, obj):
+        return format_html('<i class="fas fa-truck"></i>')
+    icon.short_description = 'Icon'
+
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name')  # Display customer name
-    search_fields = ('first_name', 'last_name')  # Enable search by customer name
+    list_display = ('icon', 'first_name', 'last_name')
 
-# Register the Order model
+    def icon(self, obj):
+        return format_html('<i class="fas fa-user"></i>')
+    icon.short_description = 'Icon'
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('product', 'customer', 'date_ordered')  # Display product, customer, and order date
-    search_fields = ('product__name', 'customer__first_name', 'customer__last_name')  # Enable search by product and customer names
-    date_hierarchy = 'date_ordered'  # Date navigation for browsing orders by date
+    list_display = ('icon', 'product', 'customer', 'date_ordered')
+
+    def icon(self, obj):
+        return format_html('<i class="fas fa-shopping-cart"></i>')
+    icon.short_description = 'Icon'

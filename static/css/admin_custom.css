@@ -1,0 +1,75 @@
+/* admin_custom.css */
+
+/* Set a background color for the admin interface */
+body {
+    background-color: #f0f4f8;
+}
+
+/* Style module headers (section titles in the admin panel) */
+.module h2 {
+    color: #4CAF50; /* Custom color for headers */
+    font-size: 1.5em;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 5px;
+}
+
+/* Style buttons in the admin interface */
+.button {
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: none;
+}
+
+.button:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+}
+
+/* Style the table headers */
+#changelist-form th {
+    background-color: #4CAF50;
+    color: #ffffff;
+}
+
+/* Customize form field labels */
+.form-row label {
+    font-weight: bold;
+    color: #333333;
+}
+
+/* Style the navigation bar */
+#header {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+#header a {
+    color: #ffffff;
+}
+
+/* Add some padding around the main content */
+#content {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon Styling for the List Display */
+.list-display i, .icon {
+    font-size: 18px;       /* Adjust icon size */
+    color: #4CAF50;        /* Set a primary color for the icons */
+    margin-right: 8px;     /* Add spacing between icon and text */
+    vertical-align: middle; /* Align icon with text */
+}
+
+/* Style icons inside form fields */
+.field-icon {
+    color: #007bff;
+    margin-right: 5px;
+}
