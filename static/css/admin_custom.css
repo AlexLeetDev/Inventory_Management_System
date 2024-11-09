@@ -73,3 +73,47 @@ body {
     color: #007bff;
     margin-right: 5px;
 }
+
+/* NEW: Add an icon before the site name in the header */
+#site-name::before {
+    content: "\f005"; /* Unicode for Font Awesome "star" icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900; /* Solid style */
+    margin-right: 8px;
+    color: #FFD700; /* Gold color for the icon */
+}
+
+/* NEW: Add a subtle icon before sidebar links */
+#nav-sidebar .model-name::before {
+    content: "\f07a"; /* Unicode for Font Awesome "folder" icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 400; /* Regular style */
+    margin-right: 6px;
+    color: #6c757d; /* Muted color for sidebar icons */
+}
+
+/* NEW: Add an icon to list view table headers */
+#changelist-form th::before {
+    content: "\f02c"; /* Unicode for Font Awesome "list" icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900; /* Solid style */
+    margin-right: 4px;
+    color: #ffffff; /* White color to match table header text */
+}
+
+/* NEW: Button icons for action buttons */
+.button::before {
+    content: "\f04b"; /* Unicode for Font Awesome "play" icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-right: 6px;
+    color: inherit;
+}
+
+/* Optional: Adjust font size for all Font Awesome icons */
+.fa {
+    font-size: 16px;
+}
+.fa-lg {
+    font-size: 20px;
+}

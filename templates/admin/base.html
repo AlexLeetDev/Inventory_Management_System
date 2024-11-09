@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Django Admin{% endblock %}</title>
+
+    <!-- Direct Font Awesome CDN link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    {% block extrastyle %}{% endblock %}
+</head>
+<body class="{% block bodyclass %}{{ body_class }}{% endblock %}">
+
+    {% block branding %}
+        <h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+    {% endblock %}
+
+    {% block content %}
+        {% block content-main %}{% endblock %}
+    {% endblock %}
+
+    {% block footer %}{% endblock %}
+</body>
+</html>
