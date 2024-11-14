@@ -38,7 +38,7 @@ ROOT_URLCONF = 'inventory_management.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # Add the templates directory here
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -50,6 +50,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'inventory_management.wsgi.application'
 

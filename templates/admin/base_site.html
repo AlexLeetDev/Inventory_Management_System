@@ -1,32 +1,20 @@
-{% load static %}
-
 {% extends "admin/base.html" %}
 
-{% block title %}My Custom Admin{% endblock %}
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Inventory Management Admin') }}{% endblock %}
 
 {% block extrastyle %}
-    <!-- Include Font Awesome CSS directly using CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <!-- Optional custom CSS for Django admin styling -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_custom.css' %}">
-{% endblock %}
-
-{% block extrahead %}
-    <!-- Optional custom JavaScript for Django admin functionality -->
-    <script src="{% static 'js/admin_custom.js' %}"></script>
+    <!-- Font Awesome CDN for Icons -->
+    <script src="https://kit.fontawesome.com/0bccd9c1ee.js" crossorigin="anonymous"></script>
+    {{ block.super }}
 {% endblock %}
 
 {% block branding %}
-    <!-- Custom branding with a Font Awesome icon -->
-    <h1 id="site-name">
-        <i class="fas fa-shield-alt"></i> <!-- Example icon for the admin title -->
-        {{ site_header|default:_('Django administration') }}
-    </h1>
-{% endblock %}
-
-{% block footer %}
-    <!-- Footer with a Font Awesome icon -->
-    <div class="footer">
-        <p><i class="fas fa-copyright"></i> 2024 My Company. All rights reserved.</p>
-    </div>
+<div id="site-name">
+  <a href="{% url 'admin:index' %}">
+    <i class="fa-sharp-duotone fa-boxes-stacked"></i> Inventory Management
+  </a>
+</div>
+{% if user.is_anonymous %}
+  {% include "admin/color_theme_toggle.html" %}
+{% endif %}
 {% endblock %}
