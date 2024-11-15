@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        .metrics {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .metric-box {
+            flex: 1;
+            margin: 0 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .metric-box h3 {
+            margin: 0;
+            font-size: 2em;
+        }
+        .metric-box p {
+            margin: 5px 0;
+            font-size: 1.2em;
+        }
+        canvas {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Inventory Dashboard</h1>
+
+    <!-- Metrics Section -->
+    <div class="metrics">
+        <div class="metric-box">
+            <h3>{{ total_stock|default:0 }}</h3>
+            <p>Total Stock</p>
+        </div>
+        <div class="metric-box">
+            <h3>{{ low_stock_items|default:0 }}</h3>
+            <p>Low-stock Items</p>
+        </div>
+        <div class="metric-box">
+            <h3>{{ out_of_stock_items|default:0 }}</h3>
+            <p>Out-of-stock Items</p>
+        </div>
+    </div>
+
+    <!-- Embed Data as JSON -->
+    <script id="chart-data" type="application/json">
+        {
+            "lowStock": {{ low_stock_items|default:0 }},
+            "outOfStock": {{ out_of_stock_items|default:0 }},
+            "totalStock": {{ total_stock|default:0 }}
+        }
+    </script>
+
+    <!-- Chart Section -->
+    <canvas id="stockChart" width="400" height="200"></canvas>
+    <script>
+        // Parse the JSON data from the script tag
+        const chartData = JSON.parse(document.getElementById('chart-data').textContent);
+        const lowStock = chartData.lowStock;
+        const outOfStock = chartData.outOfStock;
+        const totalStock = chartData.totalStock;
+        const sufficientStock = totalStock - lowStock - outOfStock;
+
+        const ctx = document.getElementById('stockChart').getContext('2d');
+        const stockChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Low-stock', 'Out-of-stock', 'Sufficient-stock'],
+                datasets: [
+                    {
+                        label: 'Stock Levels',
+                        data: [lowStock, outOfStock, sufficientStock],
+                        backgroundColor: ['red', 'orange', 'green']
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- Recent Activities Section -->
+    <h2>Recent Activities</h2>
+    <ul>
+        {% for activity in recent_activities %}
+            <li>{{ activity.description }} ({{ activity.timestamp }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
