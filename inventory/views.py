@@ -6,7 +6,6 @@ from django.db.models import Sum
 # Create a logger instance
 logger = logging.getLogger('django')
 
-
 def dashboard(request):
     try:
         # Calculate total stock across all products
