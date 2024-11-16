@@ -1,0 +1,15 @@
+# Secret key for Django
+SECRET_KEY='your-secret-key-here'
+
+# Debug mode
+DEBUG=False
+
+# Database settings
+DATABASE_NAME='your-database-name'
+DATABASE_USER='your-database-user'
+DATABASE_PASSWORD='your-database-password'
+DATABASE_HOST='localhost'
+DATABASE_PORT='3306'
+
+# Allowed hosts
+ALLOWED_HOSTS='127.0.0.1,localhost'

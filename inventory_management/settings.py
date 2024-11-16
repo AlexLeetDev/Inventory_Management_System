@@ -1,27 +1,33 @@
-import os
 from pathlib import Path
-from dotenv import load_dotenv
+from decouple import config, Csv
+from logging.handlers import RotatingFileHandler
 
-load_dotenv()  # Load environment variables from .env file
-
+# Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
+# Load SECRET_KEY from environment variables
+SECRET_KEY = config('SECRET_KEY')
 
+# Debug mode (default to False for safety)
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+# Allowed hosts
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost', cast=Csv())
+
+# Installed apps
 INSTALLED_APPS = [
-    'admin_interface',      # For custom admin interface styling
-    'colorfield',
+    'admin_interface',  # Custom admin styling
+    'colorfield',       # Required by admin_interface
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'inventory',            # Inventory app
+    'inventory',  # app
 ]
 
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -33,12 +39,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# URL configuration
 ROOT_URLCONF = 'inventory_management.urls'
 
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Add the templates directory here
+        'DIRS': [BASE_DIR / 'templates'],  # Custom templates directory
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -51,21 +59,22 @@ TEMPLATES = [
     },
 ]
 
-
+# WSGI application
 WSGI_APPLICATION = 'inventory_management.wsgi.application'
 
-# Database
+# Database configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DATABASE_NAME'),
-        'USER': os.getenv('DATABASE_USER'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-        'HOST': os.getenv('DATABASE_HOST', 'localhost'),
-        'PORT': os.getenv('DATABASE_PORT', '3306'),
+        'NAME': config('DATABASE_NAME', default='inventory_db'),
+        'USER': config('DATABASE_USER', default='root'),
+        'PASSWORD': config('DATABASE_PASSWORD', default=''),
+        'HOST': config('DATABASE_HOST', default='localhost'),
+        'PORT': config('DATABASE_PORT', default='3306', cast=int),
     }
 }
 
+# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -81,14 +90,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static and Media files
+# Static files
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']  # Directory for custom CSS/JS for admin
+STATICFILES_DIRS = [BASE_DIR / 'static']  # Directory for static files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -98,22 +108,35 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # django-admin-interface custom theme settings
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-# Logging
+# Logging configuration
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
         'file': {
             'level': 'DEBUG',
-            'class': 'logging.FileHandler',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': BASE_DIR / 'debug.log',
+            'maxBytes': 1024 * 1024 * 5,  # 5MB max file size
+            'backupCount': 5,  # Keep up to 5 backup files
         },
     },
     'loggers': {
         'django': {
             'handlers': ['file'],
             'level': 'DEBUG',
-            'propagate': True,
+            'propagate': False,
         },
     },
 }
+
+# Security settings for production
+if not DEBUG:
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_HSTS_SECONDS = 3600
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_SSL_REDIRECT = True
