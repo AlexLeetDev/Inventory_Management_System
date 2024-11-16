@@ -108,24 +108,48 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # django-admin-interface custom theme settings
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-# Logging configuration
+# Logging Configuration
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        # Detailed formatter for verbose logs
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',  # Use Python's `{}` formatting style
+        },
+        # Simple formatter for lightweight logs
+        'simple': {
+            'format': '{levelname}: {message}',
+            'style': '{',
+        },
+    },
     'handlers': {
-        'file': {
+        # Rotating file handler for detailed logs
+        'file_verbose': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            'filename': BASE_DIR / 'debug.log',
-            'maxBytes': 1024 * 1024 * 5,  # 5MB max file size
-            'backupCount': 5,  # Keep up to 5 backup files
+            'filename': r'C:\Users\Alex\SecureLogs\verbose_debug.log',  # File for detailed logs
+            'maxBytes': 5 * 1024 * 1024,  # 5 MB
+            'backupCount': 5,  # Keep up to 5 old log files
+            'formatter': 'verbose',  # Use the verbose formatter
+        },
+        # Rotating file handler for simple logs
+        'file_simple': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': r'C:\Users\Alex\SecureLogs\simple_debug.log',  # File for simple logs
+            'maxBytes': 5 * 1024 * 1024,  # 5 MB
+            'backupCount': 5,  # Keep up to 5 old log files
+            'formatter': 'simple',  # Use the simple formatter
         },
     },
     'loggers': {
+        # Logger for Django logs
         'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': False,
+            'handlers': ['file_verbose', 'file_simple'],  # Log to both handlers
+            'level': 'DEBUG',  # Log all messages DEBUG and above
+            'propagate': True,  # Allow logs to propagate to parent loggers
         },
     },
 }

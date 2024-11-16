@@ -24,5 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('product_list/', views.product_list, name='product_list'),  # Route for product list view
+    path('add_inventory/<int:product_id>/<int:quantity>/', views.add_inventory, name='add_inventory'),  # Add inventory
+    path('reduce_inventory/<int:product_id>/<int:quantity>/', views.reduce_inventory, name='reduce_inventory'),  # Reduce inventory
     path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico')),
 ]
