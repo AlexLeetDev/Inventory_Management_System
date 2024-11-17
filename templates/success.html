@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Success
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Success!</h1>
+
+<!-- Display the success message -->
+<div class="success-message mt-20 mb-20 p-10">
+    <p>{{ message }}</p>
+</div>
+
+<!-- Provide a link to navigate back to the dashboard -->
+<p class="text-center">
+    <a href="{% url 'dashboard' %}" class="button">Go to Dashboard</a>
+</p>
+{% endblock %}

@@ -1,31 +1,35 @@
-"""
-URL configuration for inventory_management project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-
 from django.views.generic import RedirectView
 from django.contrib import admin
 from django.urls import path, include
 from inventory import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
+    # Admin URL
     path('admin/', admin.site.urls),
-    path('i18n/', include('django.conf.urls.i18n')),
+
+    # Dashboard
     path('dashboard/', views.dashboard, name='dashboard'),
-    path('product_list/', views.product_list, name='product_list'),  # Route for product list view
-    path('add_inventory/<int:product_id>/<int:quantity>/', views.add_inventory, name='add_inventory'),  # Add inventory
-    path('reduce_inventory/<int:product_id>/<int:quantity>/', views.reduce_inventory, name='reduce_inventory'),  # Reduce inventory
-    path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico')),
+
+    # Product URLs
+    path('products/', views.product_list, name='product_list'),  # Product List
+    path('product/<int:product_id>/', views.product_detail, name='product_detail'),  # Product Detail
+    path('product/add/', views.add_or_edit_product, name='add_or_edit_product'),  # Add Product
+    path('product/edit/<int:product_id>/', views.add_or_edit_product, name='add_or_edit_product'),  # Edit Product
+
+    # Inventory Management URLs
+    path('add_inventory/<int:product_id>/<int:quantity>/', views.add_inventory, name='add_inventory'),  # Add Inventory
+    path('reduce_inventory/<int:product_id>/<int:quantity>/', views.reduce_inventory, name='reduce_inventory'),  # Reduce Inventory
+
+    # Reports and Logs
+    path('activity-log/', views.activity_log, name='activity_log'),  # Activity Log
+    path('low-stock-report/', views.low_stock_report, name='low_stock_report'),  # Low Stock Report
+
+    # Favicon Redirect
+    path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico')),  # Favicon Redirect
 ]
+
+# Serve media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

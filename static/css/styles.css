@@ -1,0 +1,306 @@
+/* =====================================================================
+   RESET STYLES
+   ---------------------------------------------------------------------
+   Removes default browser padding/margin and applies a uniform box-sizing
+   ===================================================================== */
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =====================================================================
+   BASE STYLES
+   ---------------------------------------------------------------------
+   Defines global typography, colors, and layout defaults
+   ===================================================================== */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+    margin: 0;
+}
+
+h1, h2, h3 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* =====================================================================
+   DASHBOARD STYLES
+   ---------------------------------------------------------------------
+   New section for the Dashboard page layout
+===================================================================== */
+.dashboard-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.metric-box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 200px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.metric-box h3 {
+    font-size: 2.5rem;
+    color: #333;
+    margin: 0;
+}
+
+.metric-box p {
+    font-size: 1.2rem;
+    color: #777;
+    margin-top: 10px;
+}
+
+.dashboard-title {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+.dashboard-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* =====================================================================
+   HEADER & NAVIGATION
+   ---------------------------------------------------------------------
+   Styles for the header and navigation bar
+   ===================================================================== */
+header {
+    background-color: #007bff;
+    padding: 10px 20px;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+header nav ul li {
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    color: white;
+    font-weight: bold;
+}
+
+header nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* =====================================================================
+   FOOTER
+   ---------------------------------------------------------------------
+   Styles for the footer
+   ===================================================================== */
+footer {
+    background-color: #f1f1f1;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* =====================================================================
+   MAIN CONTENT
+   ---------------------------------------------------------------------
+   Styles for the main content area
+   ===================================================================== */
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* =====================================================================
+   FORMS
+   ---------------------------------------------------------------------
+   Styles for forms and form elements
+   ===================================================================== */
+form {
+    margin: 20px 0;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+form input, form textarea, form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+.form-errors {
+    background-color: #ffe6e6;
+    border: 1px solid #ffcccc;
+    color: #cc0000;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 1em;
+}
+
+.success-message {
+    background-color: #e6ffe6;
+    border: 1px solid #ccffcc;
+    color: #008000;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 1em;
+}
+
+/* =====================================================================
+   TABLES
+   ---------------------------------------------------------------------
+   Styles for tables used in reports and data display
+   ===================================================================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    background: white;
+}
+
+table thead {
+    background-color: #007bff;
+    color: white;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* =====================================================================
+   BUTTONS
+   ---------------------------------------------------------------------
+   General button styles
+   ===================================================================== */
+button, .button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1em;
+    text-decoration: none;
+}
+
+button:hover, .button:hover {
+    background-color: #0056b3;
+}
+
+/* =====================================================================
+   UTILITY CLASSES
+   ---------------------------------------------------------------------
+   Reusable utility classes for spacing and alignment
+   ===================================================================== */
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.p-10 {
+    padding: 10px;
+}
+
+/* =====================================================================
+   PAGINATION CONTROLS
+   ---------------------------------------------------------------------
+   Styles for pagination buttons and navigation
+   ===================================================================== */
+   .pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination a:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Inventory Dashboard
+{% endblock %}
+
+{% block content %}
+<!-- Dashboard Title -->
+<div class="dashboard-title">
+    <h1>Inventory Dashboard</h1>
+</div>
+
+<!-- Metrics Section -->
+<div class="dashboard-container">
+    <div class="metric-box">
+        <h3 class="dashboard-number">{{ total_stock|default:0 }}</h3>
+        <p>Total Stock</p>
+    </div>
+    <div class="metric-box">
+        <h3 class="dashboard-number">{{ low_stock_items|default:0 }}</h3>
+        <p>Low-stock Items</p>
+    </div>
+    <div class="metric-box">
+        <h3 class="dashboard-number">{{ out_of_stock_items|default:0 }}</h3>
+        <p>Out-of-stock Items</p>
+    </div>
+</div>
+
+<!-- Embed Data as JSON -->
+<script id="chart-data" type="application/json">
+    {
+        "lowStock": {{ low_stock_items|default:0 }},
+        "outOfStock": {{ out_of_stock_items|default:0 }},
+        "totalStock": {{ total_stock|default:0 }}
+    }
+</script>
+
+<!-- Chart Section -->
+<canvas id="stockChart" class="mt-20" width="400" height="200"></canvas>
+<script>
+    // Parse the JSON data from the script tag
+    const chartData = JSON.parse(document.getElementById('chart-data').textContent);
+    const lowStock = chartData.lowStock;
+    const outOfStock = chartData.outOfStock;
+    const totalStock = chartData.totalStock;
+    const sufficientStock = totalStock - lowStock - outOfStock;
+
+    const ctx = document.getElementById('stockChart').getContext('2d');
+    const stockChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Low-stock', 'Out-of-stock', 'Sufficient-stock'],
+            datasets: [
+                {
+                    label: 'Stock Levels',
+                    data: [lowStock, outOfStock, sufficientStock],
+                    backgroundColor: ['red', 'orange', 'green']
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        }
+    });
+</script>
+
+<!-- Recent Activities Section -->
+<div class="recent-activities mt-20">
+    <h2>Recent Activities</h2>
+    <ul>
+        {% for activity in recent_activities %}
+            <li>{{ activity.description }} ({{ activity.timestamp }})</li>
+        {% empty %}
+            <p>No recent activities available.</p>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Low Stock Report
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Low Stock Report</h1>
+
+<!-- Description of the report -->
+<p class="mt-20 mb-20">
+    This report lists all products with stock levels below the threshold (currently {{ threshold }} units).
+</p>
+
+<!-- Table of low stock products -->
+<table>
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Stock Level</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for inventory in low_stock_products %}
+        <tr>
+            <td>{{ inventory.product.name }}</td>
+            <td>{{ inventory.stock_level }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2" class="text-center">No products with low stock at the moment.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Back link -->
+<p class="text-center mt-20">
+    <a href="{% url 'dashboard' %}" class="button">Back to Dashboard</a>
+</p>
+{% endblock %}

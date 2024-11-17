@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Product Details - {{ product.name }}
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Product Details</h1>
+
+<!-- Product Information -->
+<div class="mt-20 mb-20">
+    <h2>{{ product.name }}</h2>
+    <p><strong>Price:</strong> ${{ product.price }}</p>
+    <p><strong>Stock Level:</strong> {{ inventory.stock_level }}</p>
+</div>
+
+<!-- Low Stock Warning -->
+{% if inventory.stock_level < 10 %}
+    <div class="form-errors mt-20 mb-20">
+        <p><strong>Warning:</strong> Low stock! Only {{ inventory.stock_level }} units left.</p>
+    </div>
+{% endif %}
+
+<!-- Recent Activities -->
+<h3 class="mt-20">Recent Activities</h3>
+<ul class="mt-20">
+    {% if activities %}
+        {% for activity in activities %}
+            <li>{{ activity.timestamp }}: {{ activity.description }}</li>
+        {% endfor %}
+    {% else %}
+        <p>No recent activities for this product.</p>
+    {% endif %}
+</ul>
+
+<!-- Navigation -->
+<p class="text-center mt-20">
+    <a href="{% url 'product_list' %}" class="button">Back to Product List</a>
+</p>
+{% endblock %}

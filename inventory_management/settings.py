@@ -164,3 +164,6 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
     SECURE_SSL_REDIRECT = True
+
+# Default threshold for low-stock reports
+LOW_STOCK_THRESHOLD = 10
