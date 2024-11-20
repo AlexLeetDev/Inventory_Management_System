@@ -18,28 +18,74 @@ body {
     font-family: Arial, sans-serif;
     font-size: 16px;
     line-height: 1.6;
-    color: #333;
-    background-color: #f9f9f9;
-    margin: 0;
+    color: #333; /* Default text color */
+    background-color: #f9f9f9; /* Default background color */
+    margin: 0; /* Remove default browser margin */
 }
 
 h1, h2, h3 {
-    color: #333;
+    color: #333; /* Darker headings for emphasis */
     margin-bottom: 20px;
-    text-align: center;
+    text-align: center; /* Center headings by default */
 }
 
 p {
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* Consistent spacing for paragraphs */
 }
 
 a {
-    color: #007bff;
-    text-decoration: none;
+    color: #007bff; /* Default link color (blue) */
+    text-decoration: none; /* Remove underline by default */
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: underline; /* Add underline only for global links */
+    color: #0056b3; /* Slightly darker hover color for contrast */
+}
+
+/* =====================================================================
+   ICON STYLES
+   ---------------------------------------------------------------------
+   Defines reusable styles for icons
+===================================================================== */
+.icon {
+    font-size: 1.5rem; /* Default size for icons */
+    color: black; /* Default color */
+    margin-right: 5px; /* Add spacing to the right */
+}
+
+.icon-light {
+    color: #666; /* Lighter color variant */
+}
+
+.icon-dark {
+    color: black; /* Darker color variant */
+}
+
+.icon-white {
+    color: white; /* White icons, ideal for dark backgrounds */
+}
+
+.navbar-icon {
+    color: white; /* Icons specifically for the navbar */
+    font-size: 1.2rem;
+}
+
+.dashboard-icon {
+    color: #007bff; /* Highlight color for dashboard icons */
+}
+
+.error-icon {
+    color: red; /* Icons for error messages or alerts */
+}
+
+.success-icon {
+    color: green; /* Icons for success messages */
+}
+
+/* Hover effects for icons */
+.icon:hover {
+    color: #0056b3; /* Subtle hover color change */
 }
 
 /* =====================================================================
@@ -109,6 +155,9 @@ header nav ul {
     list-style: none;
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 header nav ul li {
@@ -116,12 +165,33 @@ header nav ul li {
 }
 
 header nav ul li a {
-    color: white;
+    position: relative;
+    display: inline-block;
+    padding: 10px 15px;
+    color: #ffffff;
+    text-decoration: none;
     font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+header nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 2px;
+    width: 0;
+    background-color: #ffffff;
+    transition: width 0.3s ease-in-out;
 }
 
 header nav ul li a:hover {
-    text-decoration: underline;
+    color: #cce7ff;
+    text-decoration: none;
+}
+
+header nav ul li a:hover::after {
+    width: 100%;
 }
 
 /* =====================================================================

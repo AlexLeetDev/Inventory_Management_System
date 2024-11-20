@@ -6,15 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Inventory Management{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://kit.fontawesome.com/0bccd9c1ee.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-                <li><a href="{% url 'product_list' %}">Products</a></li>
-                <li><a href="{% url 'activity_log' %}">Activity Log</a></li>
-                <li><a href="{% url 'low_stock_report' %}">Low Stock Report</a></li>
+                <li><a href="{% url 'dashboard' %}"><i class="fa-light fa-house navbar-icon"></i> Dashboard</a></li>
+                <li><a href="{% url 'product_list' %}"><i class="fa-light fa-boxes navbar-icon"></i> Products</a></li>
+                <li><a href="{% url 'activity_log' %}"><i class="fa-light fa-clipboard-list navbar-icon"></i> Activity Log</a></li>
+                <li><a href="{% url 'low_stock_report' %}"><i class="fa-light fa-triangle-exclamation navbar-icon"></i> Low Stock Report</a></li>
             </ul>
         </nav>
     </header>
@@ -24,7 +25,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2024 Inventory Management System</p>
+        <p>&copy; {{ current_year|default:"2024" }} Inventory Management System</p>
     </footer>
 </body>
 </html>

@@ -10,6 +10,7 @@ from .forms import ProductForm
 # Create a logger instance
 logger = logging.getLogger('django')
 
+
 def dashboard(request):
     try:
         # Calculate total stock across all products
@@ -38,12 +39,18 @@ def dashboard(request):
 
 def product_list(request):
     try:
-        # Display a list of all products with their stock levels
+        # Retrieve all products with stock levels
         products_with_stock = Inventory.objects.select_related('product').all()
-        logger.info("Product list retrieved successfully.")
+
+        # Paginate the products list, 10 products per page
+        paginator = Paginator(products_with_stock, 10)  # Change 10 to desired items per page
+        page_number = request.GET.get('page')  # Get current page from query parameters
+        page_obj = paginator.get_page(page_number)  # Fetch the current page
+
+        logger.info("Product list retrieved successfully with pagination.")
 
         context = {
-            'products_with_stock': products_with_stock,
+            'page_obj': page_obj,  # Pass the paginated object to the template
         }
         return render(request, 'inventory/product_list.html', context)
     except Exception as e:
