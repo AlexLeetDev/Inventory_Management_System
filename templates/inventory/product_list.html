@@ -18,8 +18,16 @@ Product List
     </thead>
     <tbody>
         {% for inventory in page_obj %}
-        <tr>
-            <td><i class="fa-light fa-box"></i> {{ inventory.product.name }}</td>
+        <tr class="{% if inventory.product.featured %}featured-row{% endif %}">
+            <td>
+                <!-- Box Icon for Toggling Featured -->
+                <i class="fa-light fa-box clickable-icon" 
+                   data-id="{{ inventory.product.id }}" 
+                   title="Toggle Featured" 
+                   style="{% if inventory.product.featured %} color: gold; {% else %} color: gray; {% endif %}">
+                </i>
+                {{ inventory.product.name }}
+            </td>
             <td>{{ inventory.stock_level }}</td>
             <td>
                 <a href="{% url 'product_detail' inventory.product.id %}" class="button">
@@ -53,4 +61,50 @@ Product List
         </a>
     {% endif %}
 </div>
+
+<!-- JavaScript for Toggling Featured Status -->
+<script>
+    document.querySelectorAll('.clickable-icon').forEach(icon => {
+        icon.addEventListener('click', function () {
+            const productId = this.dataset.id;
+
+            // Send AJAX request to toggle featured status
+            fetch(`/toggle_featured/${productId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'), // Include CSRF token
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update icon color based on new status
+                if (data.featured) {
+                    this.style.color = 'gold'; // Highlight for featured products
+                    this.closest('tr').classList.add('featured-row'); // Add row highlight
+                } else {
+                    this.style.color = 'gray'; // Dim for non-featured products
+                    this.closest('tr').classList.remove('featured-row'); // Remove row highlight
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+    // Helper function to get CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
 {% endblock %}

@@ -12,17 +12,31 @@ Inventory Dashboard
 
 <!-- Metrics Section -->
 <div class="dashboard-container">
+    <!-- Total Stock -->
     <div class="metric-box">
         <h3 class="dashboard-number">{{ total_stock|default:0 }}</h3>
         <p><i class="fa-light fa-box"></i> Total Stock</p>
+        <div class="progress-bar" title="Max Capacity: {{ max_capacity|default:10000 }}">
+            <div class="progress" id="total-stock-progress"></div>
+        </div>
     </div>
+
+    <!-- Low-stock Items -->
     <div class="metric-box">
         <h3 class="dashboard-number">{{ low_stock_items|default:0 }}</h3>
-        <p><i class="fa-light fa-triangle-exclamation"></i> Low-stock Items</p>
+        <p><i class="fa-light fa-triangle-exclamation"></i> Low-Stock Items</p>
+        <div class="progress-bar">
+            <div class="progress" id="low-stock-progress"></div>
+        </div>
     </div>
+
+    <!-- Out-of-stock Items -->
     <div class="metric-box">
         <h3 class="dashboard-number">{{ out_of_stock_items|default:0 }}</h3>
-        <p><i class="fa-light fa-box-open"></i> Out-of-stock Items</p>
+        <p><i class="fa-light fa-box-open"></i> Out-of-Stock Items</p>
+        <div class="progress-bar">
+            <div class="progress" id="out-of-stock-progress"></div>
+        </div>
     </div>
 </div>
 
@@ -31,43 +45,41 @@ Inventory Dashboard
     {
         "lowStock": {{ low_stock_items|default:0 }},
         "outOfStock": {{ out_of_stock_items|default:0 }},
-        "totalStock": {{ total_stock|default:0 }}
+        "totalStock": {{ total_stock|default:0 }},
+        "maxCapacity": {{ max_capacity|default:10000 }}
     }
 </script>
 
-<!-- Chart Section -->
-<canvas id="stockChart" class="mt-20" width="400" height="200"></canvas>
+<!-- JavaScript to Update Progress Bars -->
 <script>
     // Parse the JSON data from the script tag
     const chartData = JSON.parse(document.getElementById('chart-data').textContent);
-    const lowStock = chartData.lowStock;
-    const outOfStock = chartData.outOfStock;
-    const totalStock = chartData.totalStock;
-    const sufficientStock = totalStock - lowStock - outOfStock;
 
-    const ctx = document.getElementById('stockChart').getContext('2d');
-    const stockChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Low-stock', 'Out-of-stock', 'Sufficient-stock'],
-            datasets: [
-                {
-                    label: 'Stock Levels',
-                    data: [lowStock, outOfStock, sufficientStock],
-                    backgroundColor: ['red', 'orange', 'green']
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'top'
-                }
-            }
-        }
-    });
+    // Extract data
+    const totalStock = chartData.totalStock || 1; // Avoid division by zero
+    const maxCapacity = chartData.maxCapacity || 10000; // Default max capacity for demo
+    const lowStockPercentage = (chartData.lowStock / totalStock) * 100;
+    const outOfStockPercentage = (chartData.outOfStock / totalStock) * 100;
+    const capacityUtilization = (totalStock / maxCapacity) * 100;
+
+    // Update progress bar widths dynamically
+    document.getElementById('total-stock-progress').style.width = `${capacityUtilization}%`;
+    document.getElementById('low-stock-progress').style.width = `${lowStockPercentage}%`;
+    document.getElementById('out-of-stock-progress').style.width = `${outOfStockPercentage}%`;
+
+    // Change progress bar colors based on thresholds
+    if (capacityUtilization > 80) {
+        document.getElementById('total-stock-progress').style.backgroundColor = 'orange';
+    }
+    if (capacityUtilization > 95) {
+        document.getElementById('total-stock-progress').style.backgroundColor = 'red';
+    }
+    if (lowStockPercentage > 50) {
+        document.getElementById('low-stock-progress').style.backgroundColor = 'orange';
+    }
+    if (outOfStockPercentage > 50) {
+        document.getElementById('out-of-stock-progress').style.backgroundColor = 'red';
+    }
 </script>
 
 <!-- Recent Activities Section -->
@@ -81,5 +93,4 @@ Inventory Dashboard
         {% endfor %}
     </ul>
 </div>
-
 {% endblock %}

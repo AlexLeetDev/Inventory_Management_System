@@ -17,6 +17,7 @@ urlpatterns = [
     path('product/<int:product_id>/', views.product_detail, name='product_detail'),  # Product Detail
     path('product/add/', views.add_or_edit_product, name='add_or_edit_product'),  # Add Product
     path('product/edit/<int:product_id>/', views.add_or_edit_product, name='add_or_edit_product'),  # Edit Product
+    path('toggle_featured/<int:product_id>/', views.toggle_featured, name='toggle_featured'),  # Toggle Featured
 
     # Inventory Management URLs
     path('add_inventory/<int:product_id>/<int:quantity>/', views.add_inventory, name='add_inventory'),  # Add Inventory

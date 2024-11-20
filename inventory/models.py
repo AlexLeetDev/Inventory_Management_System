@@ -14,6 +14,7 @@ class Product(models.Model):
     description = models.TextField(blank=True, null=True)  # Optional product description
     price = models.DecimalField(max_digits=10, decimal_places=2)  # Product price
     supplier = models.ForeignKey(Supplier, on_delete=models.SET_NULL, null=True, blank=True)  # Optional supplier link
+    featured = models.BooleanField(default=False)  # Field to mark the product as featured
 
     def __str__(self):
         return self.name

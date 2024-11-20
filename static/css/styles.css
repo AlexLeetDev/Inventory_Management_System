@@ -88,11 +88,66 @@ a:hover {
     color: #0056b3; /* Subtle hover color change */
 }
 
+/* Clickable Box Icon Styles */
+.clickable-icon {
+    cursor: pointer; /* Make the icon clickable */
+    font-size: 1.2rem; /* Adjust the size of the icon */
+    transition: color 0.3s ease, transform 0.2s ease; /* Smooth animations for interactivity */
+    color: gray; /* Default color for non-featured products */
+}
+
+.clickable-icon:hover {
+    transform: scale(1.1); /* Slightly enlarge the icon on hover */
+    color: #007bff; /* Hover color for interactivity */
+}
+
+/* Featured Icon */
+.clickable-icon.featured {
+    color: gold; /* Gold color for featured products */
+}
+
+/* Tooltip Styles for Icons */
+.clickable-icon {
+    position: relative;
+}
+
+.clickable-icon::after {
+    content: attr(title); /* Use the 'title' attribute for tooltip text */
+    position: absolute;
+    bottom: 150%; /* Position tooltip above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8); /* Dark background for contrast */
+    color: #fff; /* White text for readability */
+    font-size: 0.75rem; /* Smaller font size */
+    padding: 3px 6px; /* Compact padding */
+    border-radius: 4px; /* Smooth corners */
+    white-space: nowrap; /* Prevent wrapping */
+    letter-spacing: 0.5px; /* Add subtle spacing between letters */
+    opacity: 0; /* Hidden by default */
+    visibility: hidden; /* Hidden by default */
+    transition: opacity 0.3s ease, transform 0.2s ease; /* Smooth transition */
+}
+
+.clickable-icon:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* =====================================================================
    DASHBOARD STYLES
    ---------------------------------------------------------------------
    New section for the Dashboard page layout
 ===================================================================== */
+/* Dashboard Title */
+.dashboard-title {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+/* Dashboard Container */
 .dashboard-container {
     display: flex;
     justify-content: space-around;
@@ -102,6 +157,7 @@ a:hover {
     padding: 20px;
 }
 
+/* Metric Boxes */
 .metric-box {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -114,31 +170,58 @@ a:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.metric-box h3 {
-    font-size: 2.5rem;
-    color: #333;
-    margin: 0;
+/* Hover Effects */
+.metric-box:hover {
+    transform: translateY(-5px); /* Slight lift */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow */
 }
 
-.metric-box p {
-    font-size: 1.2rem;
-    color: #777;
-    margin-top: 10px;
-}
-
-.dashboard-title {
-    text-align: center;
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 40px;
-}
-
+/* Dashboard Numbers */
 .dashboard-number {
     font-size: 2.5rem;
     font-weight: bold;
     color: #007bff;
+}
+
+/* Metric Descriptions */
+.metric-box p {
+    font-size: 1rem;
+    color: #777;
+    margin-top: 10px;
+}
+
+/* Progress Bar Container */
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #f0f0f0; /* Light gray background */
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+/* Progress Indicator */
+.progress {
+    height: 100%;
+    background-color: #007bff; /* Primary color for progress */
+    border-radius: 5px;
+    transition: width 0.3s ease; /* Smooth animation */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column; /* Stack metric boxes vertically */
+        align-items: center;
+    }
+
+    .metric-box {
+        width: 100%; /* Full width on small screens */
+        max-width: 300px; /* Optional max width for consistency */
+    }
 }
 
 /* =====================================================================
@@ -307,7 +390,12 @@ table tr:nth-child(even) {
 }
 
 table tr:hover {
-    background-color: #f1f1f1;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.featured-row {
+    background-color: #fff9d6 !important;
+    font-weight: bold;
 }
 
 /* =====================================================================
@@ -324,11 +412,13 @@ button, .button {
     text-align: center;
     cursor: pointer;
     font-size: 1em;
-    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
 button:hover, .button:hover {
     background-color: #0056b3;
+    color: white;
+    text-decoration: none;
 }
 
 /* =====================================================================

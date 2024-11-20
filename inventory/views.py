@@ -6,10 +6,20 @@ from django.http import JsonResponse
 from django.conf import settings
 from .models import Product, Inventory, ActivityLog
 from .forms import ProductForm
+import re
 
 # Create a logger instance
 logger = logging.getLogger('django')
 
+def toggle_featured(request, product_id):
+    if request.method == 'POST':
+        try:
+            product = Product.objects.get(id=product_id)
+            product.featured = not product.featured  # Toggle the featured status
+            product.save()
+            return JsonResponse({'message': 'Product status updated!', 'featured': product.featured})
+        except Product.DoesNotExist:
+            return JsonResponse({'error': 'Product not found.'}, status=404)
 
 def dashboard(request):
     try:
@@ -23,12 +33,18 @@ def dashboard(request):
         # Fetch recent activity logs
         recent_activities = ActivityLog.objects.order_by('-timestamp')[:10]
 
+        # Set maximum capacity (default: 10,000 units for demo purposes)
+        max_capacity = getattr(settings, 'MAX_CAPACITY', 10000)
+
+        # Log success
         logger.info("Dashboard data retrieved successfully.")
 
+        # Pass data to the template
         context = {
             'total_stock': total_stock,
             'low_stock_items': low_stock_items,
             'out_of_stock_items': out_of_stock_items,
+            'max_capacity': max_capacity,
             'recent_activities': recent_activities,
         }
         return render(request, 'inventory/dashboard.html', context)
@@ -36,15 +52,29 @@ def dashboard(request):
         logger.error(f"Error while loading dashboard: {e}")
         return render(request, 'error.html', {'message': "An error occurred while loading the dashboard."})
 
+def sort_key(obj):
+    # Extract the numeric suffix from the product name
+    match = re.search(r'(\D*)(\d+)$', obj.product.name)  # Match the main text and the number at the end
+    if match:
+        # Match groups: (main text, number)
+        main_text = match.group(1)  # The non-numeric part (e.g., "Accessories Item ")
+        number = int(match.group(2))  # The numeric part (e.g., 2 or 19)
+        return (main_text.strip().lower(), number)  # Sort by main text alphabetically, then by number
+    else:
+        # If no number is found, sort by name only
+        return (obj.product.name.lower(), float('inf'))  # Names without numbers go to the end
 
 def product_list(request):
     try:
         # Retrieve all products with stock levels
-        products_with_stock = Inventory.objects.select_related('product').all()
+        products_with_stock = Inventory.objects.select_related('product')
 
-        # Paginate the products list, 10 products per page
-        paginator = Paginator(products_with_stock, 10)  # Change 10 to desired items per page
-        page_number = request.GET.get('page')  # Get current page from query parameters
+        # Apply custom sorting by name and item number
+        sorted_products = sorted(products_with_stock, key=sort_key)
+
+        # Paginate the sorted list
+        paginator = Paginator(sorted_products, 10)
+        page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)  # Fetch the current page
 
         logger.info("Product list retrieved successfully with pagination.")
@@ -56,7 +86,6 @@ def product_list(request):
     except Exception as e:
         logger.error(f"Error while loading product list: {e}")
         return render(request, 'error.html', {'message': "An error occurred while loading the product list."})
-
 
 def product_detail(request, product_id):
     try:

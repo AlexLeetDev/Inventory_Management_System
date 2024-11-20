@@ -167,3 +167,6 @@ if not DEBUG:
 
 # Default threshold for low-stock reports
 LOW_STOCK_THRESHOLD = 10
+
+# Default maximum capacity for inventory
+MAX_CAPACITY = 10000

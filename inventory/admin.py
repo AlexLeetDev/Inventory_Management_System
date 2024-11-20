@@ -5,7 +5,9 @@ from .models import Product, Supplier, Customer, Order, Inventory, ActivityLog
 # Product Admin
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('icon', 'name', 'price')
+    list_display = ('icon', 'name', 'price', 'featured', 'supplier')
+    list_editable = ('featured',)  # Allow inline editing for the 'featured' field
+    list_filter = ('featured', 'supplier')  # Add filters for featured and supplier
 
     def icon(self, obj):
         return format_html('<i class="fa-sharp-duotone fa-box" style="--fa-primary-color: #D2691E; --fa-secondary-color: #B8860B;"></i>')
