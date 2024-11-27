@@ -59,6 +59,7 @@ cover/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+backup_data.json  # Ignore backup data files
 
 # Flask
 instance/
