@@ -1,6 +1,6 @@
+import os
 from pathlib import Path
 from decouple import config, Csv
-from logging.handlers import RotatingFileHandler
 
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -109,33 +109,49 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # Logging Configuration
+LOG_DIR = Path('C:/Users/Alex/SecureLogs')
+LOG_DIR.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
+        'simple': {
+            'format': '{levelname} {asctime} {message}',
+            'style': '{',
+        },
+        'detailed': {
+            'format': '{levelname} {asctime} {module} {message} [Process: {process}] [Thread: {thread}]',
             'style': '{',
         },
     },
     'handlers': {
-        'file_verbose': {
-            'level': 'DEBUG',
-            'class': 'logging.handlers.TimedRotatingFileHandler',  # Change here
-            'filename': Path('C:/Users/Alex/SecureLogs/verbose_debug.log'),
-            'when': 'midnight',  # Rotate logs at midnight
-            'backupCount': 5,  # Keep up to 5 days of logs
-            'formatter': 'verbose',
+        'file': {
+            'level': 'INFO',  # Log INFO and above to file
+            'class': 'logging.FileHandler',
+            'filename': LOG_DIR / 'inventory_system.log',
+            'formatter': 'detailed',
+            'encoding': 'utf-8',
+        },
+        'console': {
+            'level': 'WARNING',  # Log WARNING and above to console
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['file_verbose'],
-            'level': 'DEBUG',
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
             'propagate': True,
         },
     },
 }
+
+# Ensure the logging directory exists
+log_dir = Path('C:/Users/Alex/SecureLogs')
+if not log_dir.exists():
+    os.makedirs(log_dir, exist_ok=True)
 
 # Security settings for production
 if not DEBUG:
