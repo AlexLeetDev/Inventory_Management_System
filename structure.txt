@@ -1,0 +1,26 @@
+Inventory_Management_System/
+|-- LICENSE                 # License file for the project
+|-- README.md               # Project overview and setup instructions
+|-- manage.py               # Django management script
+|-- requirements.txt        # Python dependencies
+|-- inventory/              # Core app for managing products and inventory
+|   |-- admin.py            # Admin interface definitions
+|   |-- models.py           # Database models for inventory
+|   |-- views.py            # View functions for handling requests
+|   |-- migrations/         # Database migrations
+|   `-- management/         # Custom management commands
+|-- inventory_management/   # Project-level configuration
+|   |-- settings.py         # Django project settings
+|   |-- urls.py             # URL configuration
+|   `-- wsgi.py             # WSGI entry point for the project
+|-- templates/              # HTML templates for the web application
+|   |-- base.html           # Base template for consistent layout
+|   |-- admin/              # Custom admin templates
+|   |-- inventory/          # Templates for inventory-related views
+|   `-- success.html        # Generic success page
+|-- static/                 # Static assets (CSS, JavaScript)
+|   |-- css/                # Stylesheets
+|   `-- js/                 # JavaScript files
+|-- source/                 # Documentation source files
+|   |-- conf.py             # Sphinx configuration
+|   `-- index.rst           # Main documentation file

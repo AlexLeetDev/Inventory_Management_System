@@ -1,47 +1,101 @@
-# Inventory_Management_System
+# 📦 Inventory_Management_System
 
 An inventory management system with features for product tracking, order processing, and reporting.
 
-## Project Goals
+## 📊 Current State
 
-- Create a database to manage products, suppliers, customers, and orders.
-- Enable real-time updates on inventory levels with automated low-stock alerts.
-- Provide reporting and analytics on stock, orders, and inventory trends.
-- Develop a user-friendly interface for interacting with inventory data.
+The Inventory Management System currently includes:
 
-## Planned Features
+- ✅ Functional CRUD operations for managing products and suppliers.
+- ✅ Automated low-stock alert notifications.
+- ⚙️ A basic backend setup using Django.
+- 🖥️ A prototype dashboard for interacting with inventory data.
+
+**In Progress**:
+
+- 🚀 Enhancing the dashboard for better user interaction.
+- 📈 Adding reporting and analytics features.
+
+## ✨ Features
+
+### ✅ Implemented
 
 - **CRUD Operations**: Add, view, update, and delete products, suppliers, and orders.
+- **Low-Stock Alerts**: Notifications are sent when inventory falls below defined thresholds.
+
+### 🛠️ Planned
+
 - **Order Processing**: Track purchase and sales orders, updating inventory levels accordingly.
-- **Low-Stock Alerts**: Send notifications when inventory falls below defined thresholds.
 - **Reporting**: Generate reports on inventory levels, sales trends, and reorder needs.
-- **User Authentication** (optional): Implement role-based access control for different user types (e.g., admin, staff).
+- **User Authentication**: Implement role-based access control for different user types.
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- **Backend**: Python (Django or Flask)
-- **Database**: MySQL
-- **Frontend** (Optional): HTML/CSS and JavaScript, or a framework like React for dynamic user interactions.
-- **Version Control**: Git, GitHub
+- **Backend**: &nbsp; ![Python](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python&logoColor=white)
+- **Database**: &nbsp; ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue?logo=mysql&logoColor=white)
+- **Frontend**: &nbsp; ![HTML5](https://img.shields.io/badge/HTML5-%23E34F26.svg?logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-%231572B6.svg?logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-%23F7DF1E.svg?logo=javascript&logoColor=black)
+- **Version Control**: &nbsp; ![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)
 
 ## Project Structure
 
-- `/src`: Source code for backend and frontend
-- `/data`: SQL scripts and sample data
-- `/docs`: Documentation, diagrams, and project planning notes
-- `/tests`: Unit and integration tests
+```plaintext
+Inventory_Management_System/
+|-- LICENSE                 # License file for the project
+|-- README.md               # Project overview and setup instructions
+|-- manage.py               # Django management script
+|-- requirements.txt        # Python dependencies
+|-- inventory/              # Core app for managing products and inventory
+|   |-- admin.py            # Admin interface definitions
+|   |-- models.py           # Database models for inventory
+|   |-- views.py            # View functions for handling requests
+|   |-- migrations/         # Database migrations
+|   `-- management/         # Custom management commands
+|-- inventory_management/   # Project-level configuration
+|   |-- settings.py         # Django project settings
+|   |-- urls.py             # URL configuration
+|   `-- wsgi.py             # WSGI entry point for the project
+|-- templates/              # HTML templates for the web application
+|   |-- base.html           # Base template for consistent layout
+|   |-- admin/              # Custom admin templates
+|   |-- inventory/          # Templates for inventory-related views
+|   `-- success.html        # Generic success page
+|-- static/                 # Static assets (CSS, JavaScript)
+|   |-- css/                # Stylesheets
+|   `-- js/                 # JavaScript files
+|-- source/                 # Documentation source files
+|   |-- conf.py             # Sphinx configuration
+|   `-- index.rst           # Main documentation file
+```
 
-## Roadmap
+## 🚀 Setup and Installation
 
-1. **Database Setup**: Design schema and set up MySQL database tables.
-2. **Backend Development**: Implement CRUD operations and API endpoints.
-3. **Inventory Features**: Add order processing and low-stock alert functionality.
-4. **Frontend Development**: Build a simple interface for user interaction.
-5. **Testing and Documentation**: Test system functionality and document setup instructions.
+1. Clone the repository:
 
-## Setup and Installation
+   ```bash
+   git clone https://github.com/AlexLeetDev/Inventory_Management_System.git
+   cd Inventory_Management_System
+   ```
 
-*Setup instructions will be added as the project progresses.*
+2. Install dependencies:
+
+   ```bash
+   python -m venv env
+   source env/Scripts/activate
+   pip install -r requirements.txt
+   ```
+
+3. Set up the environment:
+   - Rename `_env.txt` to `.env` and configure the settings as needed.
+
+4. Run the server:
+
+   ```bash
+   python manage.py runserver
+   ```
+
+5. Access the app at `http://127.0.0.1:8000/`.
+
+## Screenshots
 
 ## Future Enhancements
 
