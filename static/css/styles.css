@@ -139,79 +139,82 @@ a:hover {
    ---------------------------------------------------------------------
    New section for the Dashboard page layout
 ===================================================================== */
-/* Dashboard Title */
+/* Title */
 .dashboard-title {
-    text-align: center;
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 40px;
+  text-align: center;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 40px;
 }
 
-/* Dashboard Container */
+/* Grid container for metric cards */
 .dashboard-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  align-items: stretch;    
+  padding: 20px;
 }
 
-/* Metric Boxes */
+/* Metric cards */
 .metric-box {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 200px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  min-width: 220px;     
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Hover Effects */
 .metric-box:hover {
-    transform: translateY(-5px); /* Slight lift */
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Dashboard Numbers */
+/* Numbers */
 .dashboard-number {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #007bff;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 6px;
 }
 
-/* Metric Descriptions */
+/* Labels */
 .metric-box p {
-    font-size: 1rem;
-    color: #777;
-    margin-top: 10px;
+  font-size: 1rem;
+  color: #777;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 2.2em;      
+  text-align: center;
 }
 
-/* Progress Bar Container */
+/* Progress bar */
 .progress-bar {
-    width: 100%;
-    height: 10px;
-    background-color: #f0f0f0; /* Light gray background */
-    border-radius: 5px;
-    overflow: hidden;
-    margin-top: 15px;
+  width: 100%;
+  height: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 15px;
 }
-
-/* Progress Indicator */
 .progress {
-    height: 100%;
-    background-color: #007bff; /* Primary color for progress */
-    border-radius: 5px;
-    transition: width 0.3s ease; /* Smooth animation */
+  height: 100%;
+  background-color: #007bff;
+  border-radius: 5px;
+  transition: width 0.3s ease;
 }
 
-/* --- Activity List Styling --- */
+/* --- Activity List --- */
 .activity-list {
   list-style: none;
   padding-left: 0;
@@ -220,7 +223,6 @@ a:hover {
   overflow: hidden;
   border: 1px solid #e0e0e0;
 }
-
 .activity-list li {
   margin: 0;
   padding: 0.7rem 1rem;
@@ -230,26 +232,15 @@ a:hover {
   gap: 8px;
   transition: background-color 0.2s ease;
 }
-
-.activity-list li:nth-child(odd) {
-  background-color: #f9f9f9;
-}
-
-.activity-list li:nth-child(even) {
-  background-color: #ffffff;
-}
-
-.activity-list li:hover {
-  background-color: #f1f7ff; /* subtle hover effect */
-}
-
+.activity-list li:nth-child(odd) { background-color: #f9f9f9; }
+.activity-list li:nth-child(even){ background-color: #ffffff; }
+.activity-list li:hover { background-color: #f1f7ff; }
 .activity-list li .fa-clock {
   color: #007bff;
   font-size: 1rem;
   min-width: 20px;
   text-align: center;
 }
-
 .activity-list .muted {
   color: #777;
   font-style: italic;
@@ -257,17 +248,16 @@ a:hover {
   background-color: #fafafa;
 }
 
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
-    .dashboard-container {
-        flex-direction: column; /* Stack metric boxes vertically */
-        align-items: center;
-    }
-
-    .metric-box {
-        width: 100%; /* Full width on small screens */
-        max-width: 300px; /* Optional max width for consistency */
-    }
+  .dashboard-container {
+    grid-template-columns: 1fr;  /* stack cards in one column */
+  }
+  .metric-box {
+    min-width: 0;               
+    max-width: 340px;           
+    margin: 0 auto;            
+  }
 }
 
 /* =====================================================================
