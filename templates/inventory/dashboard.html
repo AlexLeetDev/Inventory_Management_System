@@ -85,11 +85,11 @@ Inventory Dashboard
 <!-- Recent Activities Section -->
 <div class="recent-activities mt-20">
     <h2><i class="fa-light fa-list-check"></i> Recent Activities</h2>
-    <ul>
+    <ul class="activity-list striped">
         {% for activity in recent_activities %}
             <li><i class="fa-light fa-clock"></i> {{ activity.description }} ({{ activity.timestamp }})</li>
         {% empty %}
-            <p><i class="fa-light fa-info-circle"></i> No recent activities available.</p>
+            <li class="muted"><i class="fa-light fa-info-circle"></i> No recent activities available.</li>
         {% endfor %}
     </ul>
 </div>
