@@ -97,6 +97,110 @@ Inventory_Management_System/
 
 ## Screenshots
 
+### 1. **Activity Log**
+
+![Activity Log](static/screenshots/activity_log.png)
+
+The activity log provides a history of actions within the system, including inventory updates, user activities, and alerts.
+
+---
+
+### 2. **Customer Management**
+
+![Customer Management](static/screenshots/admin_customer_list.png)
+
+The customer management interface allows admin users to view and modify customer records.
+
+---
+
+### 3. **Admin Dashboard**
+
+![Admin Dashboard](static/screenshots/admin_dashboard.png)
+
+The admin dashboard provides access to various modules, including inventory, customers, and orders.
+
+---
+
+### 4. **Inventory Management**
+
+![Inventory Management](static/screenshots/admin_inventory_list.png)
+
+The inventory management module displays product details and stock levels, with the ability to add or modify inventory records.
+
+---
+
+### 5. **Login Page**
+
+![Login Page](static/screenshots/admin_login.png)
+
+The secure login page ensures that only authorized users can access the system.
+
+---
+
+### 6. **Order Management**
+
+![Order Management](static/screenshots/admin_order_list.png)
+
+The order management module provides an overview of orders, including products, customers, and timestamps.
+
+---
+
+### 7. **Product Management**
+
+![Product Management](static/screenshots/admin_product_list.png)
+
+The product management module allows users to view, add, and edit product details.
+
+---
+
+### 8. **Supplier Management**
+
+![Supplier Management](static/screenshots/admin_supplier_list.png)
+
+The supplier management module lists all suppliers and allows for updates or additions.
+
+---
+
+### 9. **Dashboard Overview**
+
+![Dashboard Overview](static/screenshots/dashboard_overview.png)
+
+The dashboard provides a summary of the inventory, including total stock, low-stock items, and out-of-stock items. It also displays recent activities.
+
+---
+
+### 10. **Highlighting Key Inventory Items**
+
+![Highlight Key Items](static/screenshots/highlight_key_items.png)
+
+The product list highlights key inventory items, such as those with high or low stock levels. Users can toggle the highlight feature on and off for better customization of their view, making it easier to focus on specific products of interest.
+
+---
+
+### 11. **Low Stock Report**
+
+![Low Stock Report](static/screenshots/low_stock_report.png)
+
+The low stock report shows products that have fallen below the threshold, helping users identify items that need to be restocked.
+
+---
+
+### 12. **Product Details**
+
+![Product Details](static/screenshots/product_details.png)
+
+Detailed product information, including price, stock levels, and recent activities, is displayed for individual products.
+
+---
+
+### 13. **Product List**
+
+![Product List](static/screenshots/product_list.png)
+
+The product list shows an overview of all products, their stock levels, and actions available for each product.
+
+---
+
 ## Future Enhancements
 
 - Integrate barcode scanning for inventory updates.

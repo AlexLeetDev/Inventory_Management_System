@@ -109,49 +109,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # Logging Configuration
-LOG_DIR = Path('C:/Users/Alex/SecureLogs')
-LOG_DIR.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'formatters': {
-        'simple': {
-            'format': '{levelname} {asctime} {message}',
-            'style': '{',
-        },
-        'detailed': {
-            'format': '{levelname} {asctime} {module} {message} [Process: {process}] [Thread: {thread}]',
-            'style': '{',
-        },
-    },
-    'handlers': {
-        'file': {
-            'level': 'INFO',  # Log INFO and above to file
-            'class': 'logging.FileHandler',
-            'filename': LOG_DIR / 'inventory_system.log',
-            'formatter': 'detailed',
-            'encoding': 'utf-8',
-        },
-        'console': {
-            'level': 'WARNING',  # Log WARNING and above to console
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file', 'console'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-    },
 }
-
-# Ensure the logging directory exists
-log_dir = Path('C:/Users/Alex/SecureLogs')
-if not log_dir.exists():
-    os.makedirs(log_dir, exist_ok=True)
 
 # Security settings for production
 if not DEBUG:

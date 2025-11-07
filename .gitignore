@@ -1,142 +1,80 @@
-# Byte-compiled / Optimized / DLL files
+# ======================================================
+# Python & Django
+# ======================================================
+
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Compiled C extensions
-*.so
+# Django static & media (generated at runtime)
+staticfiles/
+media/
 
-# Distribution / Packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Installer Logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Virtual Environment
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Unit Test / Coverage Reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-cover/
-
-# Django
-*.log
-local_settings.py
+# SQLite database (if used locally)
 db.sqlite3
-db.sqlite3-journal
-backup_data.json  # Ignore backup data files
 
-# Flask
-instance/
-.webassets-cache
+# ======================================================
+# Virtual Environment
+# ======================================================
+venv/
+.env
+.env.*
 
-# Scrapy
-.scrapy
+# ======================================================
+# Logs & Temporary Files
+# ======================================================
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.sqlite
+*.tmp
+*.temp
 
-# Sphinx Documentation
+# ======================================================
+# Editor & System Files
+# ======================================================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ======================================================
+# MySQL / External Databases
+# ======================================================
+*.accdb
+*.mdb
+
+# ======================================================
+# Sphinx Documentation (keep source/, ignore build)
+# ======================================================
+build/
 docs/_build/
-build/  # Sphinx build directory
-source/modules.rst
 
-# PyInstaller
+# ======================================================
+# Local Developer Notes or Reference Files
+# ======================================================
+structure.txt
+*.bak
+*.old
+*.orig
+
+# ======================================================
+# Compiled / Distribution files
+# ======================================================
+*.egg-info/
+dist/
+build/
 *.manifest
 *.spec
 
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
-
-# Pipenv / Poetry / PDM
-.pdm.toml
-.pdm-python
-.pdm-build/
-__pypackages__/
-poetry.lock  # Recommended to include in some cases; remove if included
-Pipfile.lock  # Same recommendation as above
-
-# mkdocs Documentation
-/site
-
-# mypy / Pyre / pytype Static Type Checkers
-.mypy_cache/
-.dmypy.json
-dmypy.json
-.pyre/
-.pytype/
-
-# Celery
-celerybeat-schedule
-celerybeat.pid
-
-# Cython Debug Symbols
-cython_debug/
-
-# PyCharm (JetBrains IDEs)
-.idea/  # Uncomment if you want to exclude the entire `.idea` folder
-
-# Spyder
-.spyderproject
-.spyproject
-
-# Rope
-.ropeproject
-
-# LaTeX / PDF Build Artifacts
-*.aux
-*.log
-*.out
-*.toc
-*.synctex.gz
-*.fdb_latexmk
-*.fls
-
-# Custom Static / Templates / Temporary Files
-_static/
-_templates/
-*.tmp
-
-# Documentation-related files
-Makefile
-make.bat
-source/
-
-# Auto-generated Files
-*.rst
+# ======================================================
+# Node / Frontend Build
+# ======================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
