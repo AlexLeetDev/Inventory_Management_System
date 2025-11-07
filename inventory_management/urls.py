@@ -6,6 +6,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    # Redirect root URL to dashboard
+    path('', RedirectView.as_view(pattern_name='dashboard', permanent=False)),
+
     # Admin URL
     path('admin/', admin.site.urls),
 

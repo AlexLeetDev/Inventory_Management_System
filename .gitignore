@@ -1,5 +1,5 @@
 # ======================================================
-# Python & Django
+# 🐍 Python & Django
 # ======================================================
 
 # Byte-compiled / optimized / DLL files
@@ -7,63 +7,74 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Django static & media (generated at runtime)
+# Django static & media files (generated at runtime)
 staticfiles/
 media/
 
-# SQLite database (if used locally)
+# SQLite database (used for local development)
 db.sqlite3
+*.sqlite3
+*.sqlite
+
+# Django migration cache
+migrations/__pycache__/
 
 # ======================================================
-# Virtual Environment
+# 💻 Virtual Environment
 # ======================================================
 venv/
 .env
 .env.*
+.env.bak
 
 # ======================================================
-# Logs & Temporary Files
+# 🧾 Logs & Temporary Files
 # ======================================================
 *.log
 *.pot
 *.pyc
 *.pyo
 *.pyd
-*.sqlite3
-*.sqlite
 *.tmp
 *.temp
-
-# ======================================================
-# Editor & System Files
-# ======================================================
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
-
-# ======================================================
-# MySQL / External Databases
-# ======================================================
-*.accdb
-*.mdb
-
-# ======================================================
-# Sphinx Documentation (keep source/, ignore build)
-# ======================================================
-build/
-docs/_build/
-
-# ======================================================
-# Local Developer Notes or Reference Files
-# ======================================================
-structure.txt
 *.bak
 *.old
 *.orig
 
 # ======================================================
-# Compiled / Distribution files
+# 🧰 Editor & System Files
+# ======================================================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# ======================================================
+# 🗄️ Databases (MySQL / Access / External)
+# ======================================================
+*.accdb
+*.mdb
+
+# ======================================================
+# 📘 Documentation (Sphinx / Auto-generated)
+# ======================================================
+# Keep /source directory for configuration,
+# but ignore auto-generated build outputs
+build/
+docs/_build/
+source/_build/
+
+# ======================================================
+# 🧑‍💻 Local Developer Notes & Scripts
+# ======================================================
+structure.txt
+seed/
+seed_data.py
+
+# ======================================================
+# 📦 Compiled / Distribution Files
 # ======================================================
 *.egg-info/
 dist/
@@ -72,7 +83,7 @@ build/
 *.spec
 
 # ======================================================
-# Node / Frontend Build
+# 🌐 Frontend / Node.js Builds
 # ======================================================
 node_modules/
 npm-debug.log*
