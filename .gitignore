@@ -23,6 +23,7 @@ migrations/__pycache__/
 # 💻 Virtual Environment
 # ======================================================
 venv/
+.venv-rbac/
 .env
 .env.*
 .env.bak
