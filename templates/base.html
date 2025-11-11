@@ -5,18 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Inventory Management{% endblock %}</title>
+
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <script src="https://kit.fontawesome.com/0bccd9c1ee.js" crossorigin="anonymous"></script>
+
+    {# Optional per-page additions (e.g., Bootstrap on login page) #}
+    {% block extra_head %}{% endblock %}
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        referrerpolicy="no-referrer">
+
     <meta name="csrf-token" content="{{ csrf_token }}">
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="{% url 'dashboard' %}"><i class="fa-light fa-house navbar-icon"></i> Dashboard</a></li>
-                <li><a href="{% url 'product_list' %}"><i class="fa-light fa-boxes navbar-icon"></i> Products</a></li>
-                <li><a href="{% url 'activity_log' %}"><i class="fa-light fa-clipboard-list navbar-icon"></i> Activity Log</a></li>
-                <li><a href="{% url 'low_stock_report' %}"><i class="fa-light fa-triangle-exclamation navbar-icon"></i> Low Stock Report</a></li>
+                <li><a href="{% url 'dashboard' %}"><i class="fa-solid fa-house navbar-icon"></i> Dashboard</a></li>
+                <li><a href="{% url 'product_list' %}"><i class="fa-solid fa-boxes-stacked navbar-icon"></i> Products</a></li>
+                <li><a href="{% url 'activity_log' %}"><i class="fa-solid fa-clipboard-list navbar-icon"></i> Activity Log</a></li>
+                <li><a href="{% url 'low_stock_report' %}"><i class="fa-solid fa-triangle-exclamation navbar-icon"></i> Low Stock Report</a></li>
+
+                <li class="nav-auth">
+                    {% if user.is_authenticated %}
+                        <span class="nav-hello">Hi, {{ user.username }}</span>
+                        <form action="{% url 'logout' %}" method="post" class="nav-logout-form">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-auth-btn">Logout</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="nav-auth-btn">Login</a>
+                    {% endif %}
+                </li>
             </ul>
         </nav>
     </header>
@@ -26,7 +46,10 @@
     </main>
 
     <footer>
-        <p>&copy; {{ current_year|default:"2024" }} Inventory Management System</p>
+        <p>&copy; {% now "Y" %} Inventory Management System</p>
     </footer>
+
+    {# Optional per-page scripts (e.g., password toggle JS) #}
+    {% block extra_scripts %}{% endblock %}
 </body>
 </html>

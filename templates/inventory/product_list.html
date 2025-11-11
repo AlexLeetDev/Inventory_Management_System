@@ -5,7 +5,7 @@ Product List
 {% endblock %}
 
 {% block content %}
-<h1 class="text-center"><i class="fa-light fa-boxes dashboard-icon"></i> Product List</h1>
+<h1 class="text-center"><i class="fa-solid fa-boxes dashboard-icon"></i> Product List</h1>
 
 <!-- Table of Products -->
 <table>
@@ -21,7 +21,7 @@ Product List
         <tr class="{% if inventory.product.featured %}featured-row{% endif %}">
             <td>
                 <!-- Box Icon for Toggling Featured -->
-                <i class="fa-light fa-box clickable-icon" 
+                <i class="fa-solid fa-box clickable-icon" 
                    data-id="{{ inventory.product.id }}" 
                    title="Toggle Featured" 
                    style="{% if inventory.product.featured %} color: gold; {% else %} color: gray; {% endif %}">
@@ -31,14 +31,14 @@ Product List
             <td>{{ inventory.stock_level }}</td>
             <td>
                 <a href="{% url 'product_detail' inventory.product.id %}" class="button">
-                    <i class="fa-light fa-eye"></i> View
+                    <i class="fa-solid fa-eye"></i> View
                 </a>
             </td>
         </tr>
         {% empty %}
         <tr>
             <td colspan="3" class="text-center">
-                <i class="fa-light fa-info-circle"></i> No products available.
+                <i class="fa-solid fa-info-circle"></i> No products available.
             </td>
         </tr>
         {% endfor %}
@@ -49,7 +49,7 @@ Product List
 <div class="pagination text-center mt-20">
     {% if page_obj.has_previous %}
         <a href="?page={{ page_obj.previous_page_number }}">
-            <i class="fa-light fa-arrow-left"></i> Previous
+            <i class="fa-solid fa-arrow-left"></i> Previous
         </a>
     {% endif %}
 
@@ -57,7 +57,7 @@ Product List
 
     {% if page_obj.has_next %}
         <a href="?page={{ page_obj.next_page_number }}">
-            Next <i class="fa-light fa-arrow-right"></i>
+            Next <i class="fa-solid fa-arrow-right"></i>
         </a>
     {% endif %}
 </div>

@@ -16,16 +16,29 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost', cast=Csv(
 
 # Installed apps
 INSTALLED_APPS = [
-    'admin_interface',  # Custom admin styling
-    'colorfield',       # Required by admin_interface
+    # Third-party theme BEFORE admin
+    'admin_interface',
+    'colorfield',          
+
+    # Django built-ins
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'inventory',  # app
+     
+    # Third-party
+    'crispy_forms',         
+    'crispy_bootstrap5',    
+
+    # Local
+    'inventory',
 ]
+
+# Crispy Forms Configuration
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Middleware
 MIDDLEWARE = [
@@ -130,3 +143,16 @@ LOW_STOCK_THRESHOLD = 10
 
 # Default maximum capacity for inventory
 MAX_CAPACITY = 10000
+
+# -------------------------------------------------
+# Authentication Settings
+# -------------------------------------------------
+
+# URLs used for login and logout redirects
+LOGIN_URL = 'login'                # Used by @login_required decorator
+LOGIN_REDIRECT_URL = 'dashboard'   # Redirect after successful login
+LOGOUT_REDIRECT_URL = 'login'      # Redirect after logout
+
+# Optional: Auto-logout after 1 hour of inactivity
+SESSION_COOKIE_AGE = 3600          # 1 hour (in seconds)
+SESSION_SAVE_EVERY_REQUEST = True  # Refresh session timer on every request

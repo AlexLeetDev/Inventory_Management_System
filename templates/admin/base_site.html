@@ -1,20 +1,63 @@
-{% extends "admin/base.html" %}
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
 
-{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Inventory Management Admin') }}{% endblock %}
+{% block title %}{% trans 'Log in' %} | {{ site_title|default:_('Inventory Management Admin') }}{% endblock %}
 
+{# Extra head: keep admin styles, just add your icon kit #}
 {% block extrastyle %}
-    <!-- Font Awesome CDN for Icons -->
-    <script src="https://kit.fontawesome.com/0bccd9c1ee.js" crossorigin="anonymous"></script>
-    {{ block.super }}
+  {{ block.super }}
+  <script src="https://kit.fontawesome.com/0bccd9c1ee.js" crossorigin="anonymous"></script>
 {% endblock %}
 
-{% block branding %}
-<div id="site-name">
-  <a href="{% url 'admin:index' %}">
-    <i class="fa-sharp-duotone fa-boxes-stacked"></i> Inventory Management
-  </a>
-</div>
-{% if user.is_anonymous %}
-  {% include "admin/color_theme_toggle.html" %}
-{% endif %}
+{# Optional: short welcome note above the form #}
+{% block content %}
+  <div id="content" class="login-container">
+    <h1 class="login-title">
+      <i class="fa-sharp-duotone fa-boxes-stacked"></i>
+      {% trans "Inventory Management Admin" %}
+    </h1>
+
+    {# Standard admin login form (keep structure for security & messages) #}
+    {% if form.errors %}
+      <p class="errornote">
+        {% trans "Please correct the error below." %} {% if form.errors|length > 1 %}{% trans "Please correct the errors below." %}{% endif %}
+      </p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+      <p class="errornote">
+        {% blocktranslate %}You are authenticated as {{ username }}, but are not authorized to access this page. Would you like to login to a different account?{% endblocktranslate %}
+      </p>
+    {% endif %}
+
+    <div class="login-form">
+      <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+        <div class="form-row">
+          {{ form.username.errors }}
+          <label for="{{ form.username.id_for_label }}">{% trans 'Username' %}:</label>
+          {{ form.username }}
+        </div>
+        <div class="form-row">
+          {{ form.password.errors }}
+          <label for="{{ form.password.id_for_label }}">{% trans 'Password' %}:</label>
+          {{ form.password }}
+          <input type="hidden" name="next" value="{{ next }}">
+        </div>
+        <div class="submit-row">
+          <input type="submit" value="{% trans 'Log in' %}">
+        </div>
+      </form>
+    </div>
+
+    {# Optional helper links #}
+    <div class="login-help">
+      <a href="{% url 'dashboard' %}" class="link-quiet">
+        ← Back to site dashboard
+      </a>
+    </div>
+
+    <div class="login-footer">
+      &copy; {% now "Y" %} Inventory Management System
+    </div>
+  </div>
 {% endblock %}

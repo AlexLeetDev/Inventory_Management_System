@@ -6,14 +6,14 @@
 
 {% block content %}
 <h1 class="text-center">
-    <i class="fa-light {% if product %}fa-pen-to-square{% else %}fa-plus-circle{% endif %} dashboard-icon"></i>
+    <i class="fa-solid {% if product %}fa-pen-to-square{% else %}fa-plus-circle{% endif %} dashboard-icon"></i>
     {% if product %}Edit Product{% else %}Add Product{% endif %}
 </h1>
 
 <!-- Display any validation errors -->
 {% if form.errors %}
     <div class="form-errors mt-20 mb-20 p-10">
-        <p><strong><i class="fa-light fa-exclamation-circle error-icon"></i> There were errors with your submission:</strong></p>
+        <p><strong><i class="fa-solid fa-exclamation-circle error-icon"></i> There were errors with your submission:</strong></p>
         <ul>
             {% for field, errors in form.errors.items %}
                 <li>{{ field|capfirst }}: {{ errors|join:", " }}</li>
@@ -27,7 +27,7 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="button">
-        <i class="fa-light {% if product %}fa-save{% else %}fa-plus{% endif %}"></i>
+        <i class="fa-solid {% if product %}fa-save{% else %}fa-plus{% endif %}"></i>
         {% if product %}Update Product{% else %}Add Product{% endif %}
     </button>
 </form>
@@ -35,7 +35,7 @@
 <!-- Back link -->
 <p class="mt-20">
     <a href="{% url 'product_list' %}" class="button">
-        <i class="fa-light fa-arrow-left"></i> Back to Product List
+        <i class="fa-solid fa-arrow-left"></i> Back to Product List
     </a>
 </p>
 {% endblock %}

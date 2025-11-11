@@ -2,7 +2,7 @@
    RESET STYLES
    ---------------------------------------------------------------------
    Removes default browser padding/margin and applies a uniform box-sizing
-   ===================================================================== */
+======================================================================== */
    * {
     margin: 0;
     padding: 0;
@@ -13,7 +13,7 @@
    BASE STYLES
    ---------------------------------------------------------------------
    Defines global typography, colors, and layout defaults
-   ===================================================================== */
+======================================================================== */
 body {
     font-family: Arial, sans-serif;
     font-size: 16px;
@@ -263,8 +263,9 @@ a:hover {
 /* =====================================================================
    HEADER & NAVIGATION
    ---------------------------------------------------------------------
-   Styles for the header and navigation bar
-   ===================================================================== */
+   Defines the layout and appearance of header, including the logo/brand
+   area, nav links, and login/logout buttons.
+======================================================================== */
 header {
     background-color: #007bff;
     padding: 10px 20px;
@@ -314,10 +315,52 @@ header nav ul li a:hover::after {
 }
 
 /* =====================================================================
+   LOGIN / LOGOUT
+   ---------------------------------------------------------------------
+   Navbar Auth
+======================================================================== */
+header nav ul {
+    justify-content: flex-start;
+}
+
+header nav ul li.nav-auth {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-logout-form {
+    display: inline;
+    margin: 0;
+}
+
+.nav-auth-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    cursor: pointer; /* Needed for <button> Logout */
+}
+.nav-auth-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Greeting color for logged-in user */
+.nav-hello {
+    color: #e6f0ff;
+    font-weight: 500;
+}
+
+/* =====================================================================
    FOOTER
    ---------------------------------------------------------------------
    Styles for the footer
-   ===================================================================== */
+======================================================================== */
 footer {
     background-color: #f1f1f1;
     padding: 10px 0;
@@ -330,7 +373,7 @@ footer {
    MAIN CONTENT
    ---------------------------------------------------------------------
    Styles for the main content area
-   ===================================================================== */
+======================================================================== */
 main {
     max-width: 800px;
     margin: 20px auto;
@@ -344,7 +387,7 @@ main {
    FORMS
    ---------------------------------------------------------------------
    Styles for forms and form elements
-   ===================================================================== */
+======================================================================== */
 form {
     margin: 20px 0;
 }
@@ -401,7 +444,7 @@ form button:hover {
    TABLES
    ---------------------------------------------------------------------
    Styles for tables used in reports and data display
-   ===================================================================== */
+======================================================================== */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -438,7 +481,7 @@ table tr:hover {
    BUTTONS
    ---------------------------------------------------------------------
    General button styles
-   ===================================================================== */
+======================================================================== */
 button, .button {
     background-color: #007bff;
     color: white;
@@ -461,7 +504,7 @@ button:hover, .button:hover {
    UTILITY CLASSES
    ---------------------------------------------------------------------
    Reusable utility classes for spacing and alignment
-   ===================================================================== */
+======================================================================== */
 .text-center {
     text-align: center;
 }
@@ -482,7 +525,7 @@ button:hover, .button:hover {
    PAGINATION CONTROLS
    ---------------------------------------------------------------------
    Styles for pagination buttons and navigation
-   ===================================================================== */
+======================================================================== */
    .pagination {
     margin-top: 20px;
     text-align: center;

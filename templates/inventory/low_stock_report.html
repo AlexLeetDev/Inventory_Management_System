@@ -5,19 +5,19 @@ Low Stock Report
 {% endblock %}
 
 {% block content %}
-<h1 class="text-center"><i class="fa-light fa-triangle-exclamation dashboard-icon"></i> Low Stock Report</h1>
+<h1 class="text-center"><i class="fa-solid fa-triangle-exclamation dashboard-icon"></i> Low Stock Report</h1>
 
 <!-- Description of the report -->
 <p class="mt-20 mb-20">
-    <i class="fa-light fa-info-circle"></i> This report lists all products with stock levels below the threshold (currently {{ threshold }} units).
+    <i class="fa-solid fa-info-circle"></i> This report lists all products with stock levels below the threshold (currently {{ threshold }} units).
 </p>
 
 <!-- Table of low stock products -->
 <table>
     <thead>
         <tr>
-            <th><i class="fa-light fa-box"></i> Product Name</th>
-            <th><i class="fa-light fa-layer-group"></i> Stock Level</th>
+            <th><i class="fa-solid fa-box"></i> Product Name</th>
+            <th><i class="fa-solid fa-layer-group"></i> Stock Level</th>
         </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@ Low Stock Report
         {% empty %}
         <tr>
             <td colspan="2" class="text-center">
-                <i class="fa-light fa-check-circle"></i> No products with low stock at the moment.
+                <i class="fa-solid fa-check-circle"></i> No products with low stock at the moment.
             </td>
         </tr>
         {% endfor %}
@@ -39,7 +39,7 @@ Low Stock Report
 <!-- Back link -->
 <p class="text-center mt-20">
     <a href="{% url 'dashboard' %}" class="button">
-        <i class="fa-light fa-arrow-left"></i> Back to Dashboard
+        <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
     </a>
 </p>
 {% endblock %}

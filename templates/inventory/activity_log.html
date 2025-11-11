@@ -5,14 +5,14 @@ Activity Log
 {% endblock %}
 
 {% block content %}
-<h1 class="text-center"><i class="fa-light fa-clipboard-list dashboard-icon"></i> Activity Log</h1>
+<h1 class="text-center"><i class="fa-solid fa-clipboard-list dashboard-icon"></i> Activity Log</h1>
 
 <!-- Display a paginated list of activities -->
 <table>
     <thead>
         <tr>
-            <th><i class="fa-light fa-clock"></i> Timestamp</th>
-            <th><i class="fa-light fa-file-alt"></i> Description</th>
+            <th><i class="fa-solid fa-clock"></i> Timestamp</th>
+            <th><i class="fa-solid fa-file-alt"></i> Description</th>
         </tr>
     </thead>
     <tbody>
@@ -24,7 +24,7 @@ Activity Log
         {% empty %}
         <tr>
             <td colspan="2" class="text-center">
-                <i class="fa-light fa-info-circle"></i> No activity logs available.
+                <i class="fa-solid fa-info-circle"></i> No activity logs available.
             </td>
         </tr>
         {% endfor %}
@@ -35,7 +35,7 @@ Activity Log
 <div class="pagination text-center mt-20">
     {% if page_obj.has_previous %}
         <a href="?page={{ page_obj.previous_page_number }}" class="button">
-            <i class="fa-light fa-arrow-left"></i> Previous
+            <i class="fa-solid fa-arrow-left"></i> Previous
         </a>
     {% endif %}
 
@@ -43,7 +43,7 @@ Activity Log
 
     {% if page_obj.has_next %}
         <a href="?page={{ page_obj.next_page_number }}" class="button">
-            Next <i class="fa-light fa-arrow-right"></i>
+            Next <i class="fa-solid fa-arrow-right"></i>
         </a>
     {% endif %}
 </div>
