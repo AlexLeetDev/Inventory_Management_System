@@ -2,54 +2,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- ==========================================================
+         GLOBAL PAGE SETTINGS
+         Loads metadata, main stylesheet, Font Awesome, and CSRF.
+         ========================================================== -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Inventory Management{% endblock %}</title>
 
+    <!-- Main stylesheet -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
-    {# Optional per-page additions (e.g., Bootstrap on login page) #}
+    <!-- Page-specific head content -->
     {% block extra_head %}{% endblock %}
 
+    <!-- Font Awesome icons -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         referrerpolicy="no-referrer">
 
+    <!-- CSRF token -->
     <meta name="csrf-token" content="{{ csrf_token }}">
 </head>
+
 <body>
+
+    <!-- ==========================================================
+         HEADER + NAVIGATION
+         Contains main navigation links and user auth controls.
+         ========================================================== -->
+
     <header>
         <nav>
             <ul>
+
+                <!-- --- Main Navigation Links --- -->
                 <li><a href="{% url 'dashboard' %}"><i class="fa-solid fa-house navbar-icon"></i> Dashboard</a></li>
                 <li><a href="{% url 'product_list' %}"><i class="fa-solid fa-boxes-stacked navbar-icon"></i> Products</a></li>
                 <li><a href="{% url 'activity_log' %}"><i class="fa-solid fa-clipboard-list navbar-icon"></i> Activity Log</a></li>
                 <li><a href="{% url 'low_stock_report' %}"><i class="fa-solid fa-triangle-exclamation navbar-icon"></i> Low Stock Report</a></li>
 
-                <li class="nav-auth">
+                <!-- --- Auth Area (Dropdown or Login Button) --- -->
+                <li class="nav-profile">
+
                     {% if user.is_authenticated %}
-                        <span class="nav-hello">Hi, {{ user.username }}</span>
-                        <form action="{% url 'logout' %}" method="post" class="nav-logout-form">
-                            {% csrf_token %}
-                            <button type="submit" class="nav-auth-btn">Logout</button>
-                        </form>
+
+                        <!-- Profile button: initials + username -->
+                        <button class="profile-btn" id="profileBtn"
+                                aria-haspopup="true" aria-expanded="false" aria-controls="profileMenu">
+                            <span class="avatar">{{ user.username|slice:":2"|upper }}</span>
+                            <span class="username">{{ user.username }}</span>
+                            <i class="fa-solid fa-caret-down"></i>
+                        </button>
+
+                        <!-- ==========================
+                             PROFILE DROPDOWN
+                             Contains shortcuts + logout.
+                             ========================== -->
+                        <ul class="profile-menu" id="profileMenu" role="menu">
+
+                            <!-- Dashboard shortcut -->
+                            <li role="none">
+                                <a role="menuitem" href="{% url 'dashboard' %}">
+                                    <i class="fa-solid fa-gauge"></i> Dashboard
+                                </a>
+                            </li>
+
+                            <!-- Products shortcut -->
+                            <li role="none">
+                                <a role="menuitem" href="{% url 'product_list' %}">
+                                    <i class="fa-solid fa-boxes-stacked"></i> Products
+                                </a>
+                            </li>
+
+                            <!-- Divider line -->
+                            <li class="menu-divider" aria-hidden="true"></li>
+
+                            <!-- Logout -->
+                            <li role="none">
+                                <form action="{% url 'logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <button role="menuitem" type="submit">
+                                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+
                     {% else %}
+
+                        <!-- Login button (visible only when logged out) -->
                         <a href="{% url 'login' %}" class="nav-auth-btn">Login</a>
+
                     {% endif %}
                 </li>
             </ul>
         </nav>
     </header>
 
+    <!-- ==========================================================
+         MAIN PAGE CONTENT
+         Page-specific content loads here.
+         ========================================================== -->
     <main>
         {% block content %}{% endblock %}
     </main>
 
+    <!-- ==========================================================
+         FOOTER
+         ========================================================== -->
     <footer>
         <p>&copy; {% now "Y" %} Inventory Management System</p>
     </footer>
 
-    {# Optional per-page scripts (e.g., password toggle JS) #}
+    <!-- ==========================================================
+         PROFILE DROPDOWN SCRIPT
+         Controls dropdown open/close and keyboard navigation.
+         ========================================================== -->
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const btn = document.getElementById('profileBtn');
+            const menu = document.getElementById('profileMenu');
+
+            if (!btn || !menu) return;
+
+            function openMenu() {
+                menu.classList.add('show');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+
+            function closeMenu() {
+                menu.classList.remove('show');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+
+            function toggleMenu() {
+                menu.classList.contains('show') ? closeMenu() : openMenu();
+            }
+
+            // Click to toggle menu
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleMenu();
+
+                const first = menu.querySelector('a,[role="menuitem"],button[role="menuitem"]');
+                if (menu.classList.contains('show') && first) first.focus();
+            });
+
+            // Click outside to close
+            document.addEventListener('click', () => closeMenu());
+
+            // Keyboard navigation
+            menu.addEventListener('keydown', (e) => {
+                const items = Array.from(menu.querySelectorAll('a,[role="menuitem"],button[role="menuitem"]'));
+                const index = items.indexOf(document.activeElement);
+
+                if (e.key === 'Escape') {
+                    closeMenu();
+                    btn.focus();
+                }
+
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    (items[index + 1] || items[0]).focus();
+                }
+
+                if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    (items[index - 1] || items[items.length - 1]).focus();
+                }
+            });
+
+            // Close if focus leaves menu entirely
+            menu.addEventListener('focusout', () => {
+                setTimeout(() => {
+                    const active = document.activeElement;
+                    if (!menu.contains(active) && active !== btn) closeMenu();
+                }, 0);
+            });
+        });
+    </script>
+
     {% block extra_scripts %}{% endblock %}
+    
 </body>
 </html>

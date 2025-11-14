@@ -323,7 +323,8 @@ header nav ul {
     justify-content: flex-start;
 }
 
-header nav ul li.nav-auth {
+header nav ul li.nav-auth,
+header nav ul li.nav-profile {
     margin-left: auto;
     display: flex;
     align-items: center;
@@ -354,6 +355,113 @@ header nav ul li.nav-auth {
 .nav-hello {
     color: #e6f0ff;
     font-weight: 500;
+}
+
+/* =====================================================================
+   PROFILE DROPDOWN
+   ---------------------------------------------------------------------
+   Styles for the user initials button and dropdown menu.
+======================================================================== */
+.nav-profile {
+    position: relative;
+}
+
+/* Main button */
+.profile-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-weight: 600;
+    transition: background .2s ease, box-shadow .2s ease;
+}
+
+.profile-btn:hover,
+.profile-btn:focus-visible {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Initials circle */
+.avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: rgba(255,255,255,0.25);
+    color: #fff;
+    font-weight: 700;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+}
+
+/* Dropdown container */
+.profile-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    min-width: 200px;
+    list-style: none;
+    padding: .4rem;
+    margin: 0;
+
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+
+    z-index: 1000;
+    display: none; /* hidden by default */
+}
+
+/* Show dropdown */
+.profile-menu.show {
+    display: block;
+}
+
+/* Menu items */
+.profile-menu a,
+.profile-menu button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .6rem .7rem;
+    color: #1f2937;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: .95rem;
+    text-align: left;
+}
+
+.profile-menu a:hover,
+.profile-menu button:hover,
+.profile-menu a:focus-visible,
+.profile-menu button:focus-visible {
+    background: #f5f7ff;
+}
+
+/* Divider line */
+.menu-divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: .35rem .3rem;
+    border-radius: 999px;
+}
+
+/* Hide username on phones */
+@media (max-width: 768px) {
+    .profile-btn .username {
+        display: none;
+    }
 }
 
 /* =====================================================================
