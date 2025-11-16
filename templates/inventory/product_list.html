@@ -5,6 +5,10 @@ Product List
 {% endblock %}
 
 {% block content %}
+<!-- product_list.html
+     Shows products and stock levels.
+     RBAC: Only users with "can_manage_inventory" can toggle featured status. -->
+
 <h1 class="text-center"><i class="fa-solid fa-boxes dashboard-icon"></i> Product List</h1>
 
 <!-- Table of Products -->
@@ -20,13 +24,20 @@ Product List
         {% for inventory in page_obj %}
         <tr class="{% if inventory.product.featured %}featured-row{% endif %}">
             <td>
-                <!-- Box Icon for Toggling Featured -->
-                <i class="fa-solid fa-box clickable-icon" 
-                   data-id="{{ inventory.product.id }}" 
-                   title="Toggle Featured" 
-                   style="{% if inventory.product.featured %} color: gold; {% else %} color: gray; {% endif %}">
-                </i>
-                {{ inventory.product.name }}
+                {% if perms.inventory.can_manage_inventory %}
+                    <!-- Only users with manage permission can toggle featured -->
+                    <i class="fa-solid fa-box clickable-icon"
+                        data-id="{{ inventory.product.id }}"
+                        title="Toggle Featured"
+                        style="{% if inventory.product.featured %} color: gold; {% else %} color: gray; {% endif %}">
+                    </i>
+                {% else %}
+                    <!-- Show a static icon for users without manage permission -->
+                    <i class="fa-solid fa-box"
+                        style="{% if inventory.product.featured %} color: gold; {% else %} color: gray; {% endif %}">
+                    </i>
+                {% endif %}
+                {{ inventory.product.name }} 
             </td>
             <td>{{ inventory.stock_level }}</td>
             <td>
@@ -62,7 +73,8 @@ Product List
     {% endif %}
 </div>
 
-<!-- JavaScript for Toggling Featured Status -->
+{% if perms.inventory.can_manage_inventory %}
+<!-- JavaScript for Toggling Featured Status (only needed if user can manage inventory) -->
 <script>
     document.querySelectorAll('.clickable-icon').forEach(icon => {
         icon.addEventListener('click', function () {
@@ -107,4 +119,5 @@ Product List
         return cookieValue;
     }
 </script>
+{% endif %}
 {% endblock %}

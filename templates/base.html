@@ -39,10 +39,31 @@
             <ul>
 
                 <!-- --- Main Navigation Links --- -->
-                <li><a href="{% url 'dashboard' %}"><i class="fa-solid fa-house navbar-icon"></i> Dashboard</a></li>
-                <li><a href="{% url 'product_list' %}"><i class="fa-solid fa-boxes-stacked navbar-icon"></i> Products</a></li>
-                <li><a href="{% url 'activity_log' %}"><i class="fa-solid fa-clipboard-list navbar-icon"></i> Activity Log</a></li>
-                <li><a href="{% url 'low_stock_report' %}"><i class="fa-solid fa-triangle-exclamation navbar-icon"></i> Low Stock Report</a></li>
+                <li>
+                    <a href="{% url 'dashboard' %}">
+                        <i class="fa-solid fa-house navbar-icon"></i> Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'product_list' %}">
+                        <i class="fa-solid fa-boxes-stacked navbar-icon"></i> Products
+                    </a>
+                </li>
+
+                {# RBAC: Only show report links to users who can view reports #}
+                {% if perms.inventory.can_view_reports %}
+                    <li>
+                        <a href="{% url 'activity_log' %}">
+                            <i class="fa-solid fa-clipboard-list navbar-icon"></i> Activity Log
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'low_stock_report' %}">
+                            <i class="fa-solid fa-triangle-exclamation navbar-icon"></i> Low Stock Report
+                        </a>
+                    </li>
+                {% endif %}
 
                 <!-- --- Auth Area (Dropdown or Login Button) --- -->
                 <li class="nav-profile">
@@ -76,6 +97,20 @@
                                     <i class="fa-solid fa-boxes-stacked"></i> Products
                                 </a>
                             </li>
+
+                            {# RBAC: Show report shortcuts only for users with report access #}
+                            {% if perms.inventory.can_view_reports %}
+                                <li role="none">
+                                    <a role="menuitem" href="{% url 'activity_log' %}">
+                                        <i class="fa-solid fa-clipboard-list"></i> Activity Log
+                                    </a>
+                                </li>
+                                <li role="none">
+                                    <a role="menuitem" href="{% url 'low_stock_report' %}">
+                                        <i class="fa-solid fa-triangle-exclamation"></i> Low Stock Report
+                                    </a>
+                                </li>
+                            {% endif %}
 
                             <!-- Divider line -->
                             <li class="menu-divider" aria-hidden="true"></li>
